@@ -71,20 +71,20 @@ class Kategori extends CI_Controller{
             $this->session->set_flashdata('message', "Hapus gagal!! Data belum dipilih");
             redirect('kategori');
         }
-        $this->db->where_in('id', $id);
-        $hapus_kategori = $this->db->delete('tk_kategori');
-        if($hapus_kategori){
+        $this->db->where_in('tk_kategori_id', $id);
+        $hapus_paket = $this->db->delete('tmst_paket');
+        if($hapus_paket){
             $this->db->where_in('id', $id);
             if ($this->db->delete('tk_kategori')){
                 $this->session->set_flashdata('message', "Berhasil Delete Data");
             }
-            redirect('kategori', $data);
+            redirect('kategori');
         }else{
             $this->db->where_in('id', $id);
             if ($this->db->delete('tk_kategori')){
                 $this->session->set_flashdata('message', "Berhasil Delete Data");
             }
-            redirect('kategori', $data);
+            redirect('kategori');
         }
     }
 

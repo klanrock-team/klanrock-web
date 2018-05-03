@@ -4,10 +4,10 @@
 			echo form_label('Jabatan','jabatan');
 		    echo form_input(array(
 		    	'type'=>'text',
-		    	'name'=>'Jabatan',
+		    	'name'=>'jabatan',
 		    	'value'=>@$jabatan['jabatan'],
 		    	'class'=>'form-control',
-		    	'placeholder'=>'Jabatan',
+		    	'placeholder'=>'Jabatan Karyawan',
 		    	'required'=>'yes'
 			));
 		echo "</div>";
