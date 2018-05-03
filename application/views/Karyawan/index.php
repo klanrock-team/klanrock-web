@@ -11,30 +11,32 @@
     </ol>
 </section><br>
 <?php echo form_open('karyawan/delete');?>
-<div class="col-md-12">
-
-        <?php if($this->session->flashdata()){echo "<div class='alert alert-info'>".$this->session->flashdata('message')."</div>";}?>
-        <div class="box box-primary">
-            <div class="box-header">
-                <div class="col-sm-4 well">
-                    <span class="jumlah_pilih">0 Dipilih</span>
-                    <a href="<?php echo base_url(); ?>karyawan/input" >
-                        <button class="btn btn-success pull-right" type="button">
-                            <div>
-                                <i class="fa fa-plus-square"></i> TAMBAH
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+                <?php if($this->session->flashdata()){?>
+                    <div class="alert alert-info alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <?php echo $this->session->flashdata('message');?>    
+                    </div>
+                <?php
+                    }
+                ?>
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <div class="col-sm-2 well" style="margin-bottom: 0px;">
+                            <button type="button" class="btn btn-default btn-sm checkbox-toggle btn-flat" title="Select All"><i class="fa fa-square-o"></i></button>
+                            <div class="btn-group">
+                                <a href="#" data-toggle="modal" data-target="#hapus"><button type="button" class="btn btn-default btn-flat btn-sm " title="Hapus"><i class="fa fa-trash-o"></i></button></a>
+                                <a href="<?php echo base_url(); ?>jabatan/input" ><button type="button" class="btn btn-default btn-sm btn-flat" title="Tambah Data"><i class="fa fa-plus-square"></i></button></a>
                             </div>
-                        </button>
-                    </a>
-                    <a href="#" data-toggle="modal" data-target="#hapus"><button type="button" name="delete" id="hapus_record" class="btn btn-primary pull-right"><i class="fa fa-trash"> HAPUS</i></button></a>
-                </div>
-            </div><!-- /.box-header -->
-            <div class="box-body">
-                <table class="Tabel_Data table table-striped">
-                    <thead>
-                    <tr>
-                        <th width="8%">
-                            <input type="checkbox" class="checkbox pilih_semua">
-                            #</i></th>
+                        </div>
+                    </div><!-- /.box-header -->
+                    <div class="box-body tabel-box">
+                        <table class="table table-striped" id="example1">
+                            <thead>
+                            <tr>
+                                <th width="8%"></th>
                         <th>Karyawan</th>
                         <th>Alamat</th>
                         <th>No Hp</th>
@@ -50,14 +52,14 @@
                               <td><?php echo $value->no_hp?></td>
                                <td><?php echo $value->tk_jabatan_id?></td>
                             <td>
-                                <a href="<?php echo base_url(); ?>karyawan/edit/<?php echo $value->id?>"><button type="button" class="btn btn-xs btn-warning btn-flat" title="edit"><i class="fa fa-edit"></i></button></a>
-                            </td>
-                        </tr>
-                        <?php
-                        }
-                        ?>
-                    </tbody>
-                </table>
+                                <a href="<?php echo base_url(); ?>jabatan/edit/<?php echo $value->id?>"><button type="button" class="btn btn-xs btn-warning btn-flat" title="edit"><i class="fa fa-edit"></i></button></a>
+                                    </td>
+                                </tr>
+                                <?php
+                                }
+                                ?>
+                            </tbody>
+                        </table>
             </div><!-- /.box-body -->
         </div>
 </div>
@@ -83,4 +85,15 @@
           <!-- /.modal-dialog -->
         </div>
         <!-- /.modal -->
+</div>     
+    </div>
+</section>
 <?php echo form_close();?>
+<script type="text/javascript">
+    $(function () {
+        $('.tabel-box input[type="checkbox"]').iCheck({
+                checkboxClass: 'icheckbox_flat-red',
+                radioClass: 'iradio_flat-red'
+        });
+    });
+</script>
