@@ -71,20 +71,20 @@ class Jabatan extends CI_Controller{
             $this->session->set_flashdata('message', "Hapus gagal!! Data belum dipilih");
             redirect('jabatan');
         }
-        $this->db->where_in('id', $id);
-        $hapus_jabatan = $this->db->delete('tk_jabatan');
-        if($hapus_jabatan){
+        $this->db->where_in('tk_jabatan_id', $id);
+        $hapus_karyawan = $this->db->delete('karyawan');
+        if($hapus_karyawan){
             $this->db->where_in('id', $id);
             if ($this->db->delete('tk_jabatan')){
                 $this->session->set_flashdata('message', "Berhasil Delete Data");
             }
-            redirect('jabatan', $data);
+            redirect('jabatan');
         }else{
             $this->db->where_in('id', $id);
             if ($this->db->delete('tk_jabatan')){
                 $this->session->set_flashdata('message', "Berhasil Delete Data");
             }
-            redirect('jabatan', $data);
+            redirect('jabatan');
         }
     }
 
