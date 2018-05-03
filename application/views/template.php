@@ -69,9 +69,9 @@
             </a>
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
-                     <li class="dropdown user user-menu">
+                     <li class="dropdown user user-menu" title="Log Out">
                         <a href="#">
-                            <i class="fa fa-power-off"> <span class="hidden-xs">Log Out</span></i>
+                            <i class="fa fa-power-off" > <span class="hidden-xs">Log Out</span></i>
                         </a>
                       </li>
                       <!-- Control Sidebar Toggle Button -->
