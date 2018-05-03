@@ -28,7 +28,7 @@
                             <button type="button" class="btn btn-default btn-sm checkbox-toggle btn-flat" title="Select All"><i class="fa fa-square-o"></i></button>
                             <div class="btn-group">
                                 <a href="#" data-toggle="modal" data-target="#hapus"><button type="button" class="btn btn-default btn-flat btn-sm " title="Hapus"><i class="fa fa-trash-o"></i></button></a>
-                                <a href="<?php echo base_url(); ?>jabatan/input" ><button type="button" class="btn btn-default btn-sm btn-flat" title="Tambah Data"><i class="fa fa-plus-square"></i></button></a>
+                                <a href="<?php echo base_url(); ?>Karyawan/input" ><button type="button" class="btn btn-default btn-sm btn-flat" title="Tambah Data"><i class="fa fa-plus-square"></i></button></a>
                             </div>
                         </div>
                     </div><!-- /.box-header -->
@@ -52,7 +52,7 @@
                               <td><?php echo $value->no_hp?></td>
                                <td><?php echo $value->tk_jabatan_id?></td>
                             <td>
-                                <a href="<?php echo base_url(); ?>jabatan/edit/<?php echo $value->id?>"><button type="button" class="btn btn-xs btn-warning btn-flat" title="edit"><i class="fa fa-edit"></i></button></a>
+                                <a href="<?php echo base_url(); ?>Karyawan/edit/<?php echo $value->id?>"><button type="button" class="btn btn-xs btn-warning btn-flat" title="edit"><i class="fa fa-edit"></i></button></a>
                                     </td>
                                 </tr>
                                 <?php
