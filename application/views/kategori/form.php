@@ -1,7 +1,7 @@
 <div class="col-md-9">
 	<?php
 		echo "<div class='form-group'>";
-			echo form_label('Layanan','layanan');
+			echo form_label('Kategori','Kategori');
 		    echo form_input(array(
 		    	'type'=>'text',
 		    	'name'=>'kategori',

@@ -19,6 +19,8 @@
     <link rel="stylesheet" href="<?php echo base_url();?>/desain/admin/dist/css/skins/_all-skins.min.css">
     <!-- iCheck -->
     <link rel="stylesheet" href="<?php echo base_url();?>/desain/admin/plugins/iCheck/flat/blue.css">
+    <!-- iCheck -->
+    <link rel="stylesheet" href="<?php echo base_url();?>/desain/admin/plugins/iCheck/flat/red.css">
     <!-- Morris chart -->
     <link rel="stylesheet" href="<?php echo base_url();?>/desain/admin/plugins/morris/morris.css">
     <!-- jvectormap -->
@@ -85,27 +87,23 @@
 
        <?php $this->load->view($body);?>
         <script>
-            //hapus
-            $('document').ready(function() {
-                // checkbox untuk mencentang semua
-                jQuery('.pilih_semua').on('click', function (e) {
-                    if ($(this).is(':checked', true)) {
-                        $(".id_checkbox").prop('checked', true);
-                    }
-                    else {
-                        $(".id_checkbox").prop('checked', false);
-                    }
-                    // mengatur semua jumlah checkbox yang dicentang
-                    $(".jumlah_pilih").html($("input.id_checkbox:checked").length + " Dipilih");
-                });
-                // mengatur jumlah checkbox tertentu yang dicentang
-                $(".id_checkbox").on('click', function (e) {
-                    $(".jumlah_pilih").html($("input.id_checkbox:checked").length + " Dipilih");
-                });
-            });
             $(function () {
                 //Initialize Select2 Elements
-                $(".select2").select2();
+                $(".select2").select2(); 
+                //Enable check and uncheck all functionality
+                $(".checkbox-toggle").click(function () {
+                  var clicks = $(this).data('clicks');
+                  if (clicks) {
+                    //Uncheck all checkboxes
+                    $(".tabel-box input[type='checkbox']").iCheck("uncheck");
+                    $(".fa", this).removeClass("fa-check-square-o").addClass('fa-square-o');
+                  } else {
+                    //Check all checkboxes
+                    $(".tabel-box input[type='checkbox']").iCheck("check");
+                    $(".fa", this).removeClass("fa-square-o").addClass('fa-check-square-o');
+                  }
+                  $(this).data("clicks", !clicks);
+                });
                 //datatable
                 $("#example1").DataTable();
                 $('.Tabel_Data').DataTable({
@@ -115,6 +113,10 @@
                     "ordering": false,
                     "info": true,
                     "autoWidth": true
+                });
+                $('.tabel-box input[type="checkbox"]').iCheck({
+                    checkboxClass: 'icheckbox_flat-red',
+                    radioClass: 'iradio_flat-red'
                 });
 
 
@@ -342,6 +344,7 @@
 <script src="<?php echo base_url();?>/desain/admin/dist/js/pages/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo base_url();?>/desain/admin/dist/js/demo.js"></script>
+<script src="<?php echo base_url();?>/desain/admin/plugins/iCheck/icheck.min.js"></script>
 
 </body>
 </html>

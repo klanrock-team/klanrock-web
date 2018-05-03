@@ -12,29 +12,32 @@
 </section><br>
 <?php echo form_open('kategori/delete');?>
 <div class="col-md-12">
-
-        <?php if($this->session->flashdata()){echo "<div class='alert alert-info'>".$this->session->flashdata('message')."</div>";}?>
+        <?php if($this->session->flashdata()){?>
+            <div class="alert alert-info alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <?php echo $this->session->flashdata('message');?>    
+            </div>
+        <?php
+            }
+        ?>
         <div class="box box-primary">
-            <div class="box-header">
-                <div class="col-sm-4 well">
-                    <span class="jumlah_pilih">0 Dipilih</span>
-                    <a href="<?php echo base_url(); ?>kategori/input" >
-                        <button class="btn btn-success pull-right" type="button">
-                            <div>
-                                <i class="fa fa-plus-square"></i> TAMBAH
-                            </div>
-                        </button>
-                    </a>
-                    <a href="#" data-toggle="modal" data-target="#hapus"><button type="button" name="delete" id="hapus_record" class="btn btn-primary pull-right"><i class="fa fa-trash"> HAPUS</i></button></a>
+            <div class="box-header with-border">
+                <div class="col-sm-2 well" style="margin-bottom: 0px;">
+                    <button type="button" class="btn btn-default btn-sm checkbox-toggle btn-flat" title="Select All"><i class="fa fa-square-o"></i></button>
+                    <div class="btn-group">
+                        <a href="#" data-toggle="modal" data-target="#hapus"><button type="button" class="btn btn-default btn-flat btn-sm " title="Hapus"><i class="fa fa-trash-o"></i></button></a>
+                        <a href="<?php echo base_url(); ?>kategori/input" ><button type="button" class="btn btn-default btn-sm btn-flat" title="Tambah Data"><i class="fa fa-plus-square"></i></button></a>
+                    </div>
                 </div>
-            </div><!-- /.box-header -->
-            <div class="box-body">
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body tabel-box">
                 <table class="Tabel_Data table table-striped">
                     <thead>
                     <tr>
                         <th width="8%">
-                            <input type="checkbox" class="checkbox pilih_semua">
-                            #</i></th>
+                            <!-- <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="fa fa-square-o"></i></button> -->
+                        </th>
                         <th>Kategori</th>
                         <th>Opsi</th>
                     </tr>
@@ -65,7 +68,7 @@
                 <h4 class="modal-title">Hapus kategori??</h4>
               </div>
               <div class="modal-body">
-                Ketika menghapus kategori,semua transaksi yang menggunakan kategori akan ikut terhapus<br>
+                Ketika menghapus kategori,semua paket yang memiliki kategori ini akan ikut terhapus<br>
                 Apakah anda yakin? 
               </div>
               <div class="modal-footer">
