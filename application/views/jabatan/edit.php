@@ -17,7 +17,7 @@
         <li class="active">Edit</li>
     </ol>
 </section><br>
-<?php echo form_open('/update');
+<?php echo form_open('jabatan/update');
 echo form_hidden('id', $this->uri->segment(3));?>
 <div class="col-md-12">
     <div class="box box-primary">
