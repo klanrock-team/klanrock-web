@@ -8,25 +8,25 @@
 ?>
 <section class="content-header">
     <h1>
-        Edit Karyawan
-        <small>edit</small>
+        Input Galery
+        <small>new</small>
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">karyawan</a></li>
-        <li class="active">Edit</li>
+        <li><a href="#">galery</a></li>
+        <li class="active">Input</li>
     </ol>
 </section><br>
 <section class="content">
     <div class="row">
-        <?php echo form_open('karyawan/update');
-        echo form_hidden('id', $this->uri->segment(3));?>
+        <?php echo form_open('galery/insert');?>
         <div class="col-md-12">
             <div class="box box-primary">
                 <div class="box-body">
                     <div class="row">
-                            <?php $this->load->view($form)?>
+                        <?php $this->load->view($form)?>
                         <div class="col-md-12">
+                            <button type="button" onclick="kembali()" class="btn btn-default"><i class="fa fa-backward"></i> Kembali</button>
                             <?php echo form_submit('SUBMIT','SIMPAN', array('class'=>'btn btn-primary btn-flat'));?>
                         </div>
                     </div><!-- /.row -->

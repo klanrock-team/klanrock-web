@@ -37,11 +37,12 @@
                             <thead>
                             <tr>
                                 <th width="8%"></th>
-                        <th>Karyawan</th>
-                        <th>Alamat</th>
-                        <th>No Hp</th>
-                        <th>Jabatan</th>
-                    </tr>
+                                <th>Karyawan</th>
+                                <th>Alamat</th>
+                                <th>No Hp</th>
+                                <th>Jabatan</th>
+                                <th>Opsi</th>
+                            </tr>
                     </thead>
                     <tbody>
                         <?php foreach (@$karyawan as $value) {?>
@@ -60,9 +61,9 @@
                                 ?>
                             </tbody>
                         </table>
-            </div><!-- /.box-body -->
+                    </div><!-- /.box-body -->
+                </div>
         </div>
-</div>
         <div class="modal fade" id="hapus">
           <div class="modal-dialog">
             <div class="modal-content">
@@ -85,8 +86,7 @@
           <!-- /.modal-dialog -->
         </div>
         <!-- /.modal -->
-</div>     
-    </div>
+    </div>     
 </section>
 <?php echo form_close();?>
 <script type="text/javascript">
