@@ -1,0 +1,28 @@
+{
+  "name": "dropify-multiple",
+  "title": "Dropify-multiple",
+  "description": "Override your input files with style",
+  "keywords": [
+    "upload",
+    "preview",
+    "file",
+    "drag",
+    "drop",
+    "jquery"
+  ],
+  "homepage": "https://github.com/brewengage/dropify-multiple/",
+  "author": {
+    "name": "Ravi Kannan"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/brewengage/dropify-multiple.git"
+  },
+  "dependencies": {
+    "jquery": ">=1.8"
+  },
+  "main": [
+    "dist/js/dropify-multiple.js",
+    "dist/css/dropify-multiple.css"
+  ]
+}
