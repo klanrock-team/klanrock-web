@@ -60,9 +60,9 @@
                                 ?>
                             </tbody>
                         </table>
-            </div><!-- /.box-body -->
+                    </div><!-- /.box-body -->
+                </div>
         </div>
-</div>
         <div class="modal fade" id="hapus">
           <div class="modal-dialog">
             <div class="modal-content">
@@ -85,8 +85,7 @@
           <!-- /.modal-dialog -->
         </div>
         <!-- /.modal -->
-</div>     
-    </div>
+    </div>     
 </section>
 <?php echo form_close();?>
 <script type="text/javascript">
