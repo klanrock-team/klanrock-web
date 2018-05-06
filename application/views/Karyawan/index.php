@@ -37,11 +37,12 @@
                             <thead>
                             <tr>
                                 <th width="8%"></th>
-                        <th>Karyawan</th>
-                        <th>Alamat</th>
-                        <th>No Hp</th>
-                        <th>Jabatan</th>
-                    </tr>
+                                <th>Karyawan</th>
+                                <th>Alamat</th>
+                                <th>No Hp</th>
+                                <th>Jabatan</th>
+                                <th>Opsi</th>
+                            </tr>
                     </thead>
                     <tbody>
                         <?php foreach (@$karyawan as $value) {?>
