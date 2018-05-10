@@ -29,7 +29,7 @@
 		echo "<div class='form-group'>";
 			echo form_label('No Hp','No Hp');
 		    echo form_input(array(
-		    	'type'=>'number',
+		    	'type'=>'text',
 		    	'name'=>'No_HP_Karyawan',
 		    	'value'=>@$karyawan['no_hp'],
 		    	'class'=>'form-control',
@@ -39,11 +39,11 @@
 		echo "</div>";
 	?>
 	<div class='form-group'>
-		<label for="Id_Jabatan">Jabatan Pegawai</label>
+		<label for="Id_Jabatan">Jabatan</label>
 		<select class="form-control" name="Id_Jabatan">
 			<?php foreach ($jabatan as $list) {?>
 				<option value="<?php echo $list->id?>">
-				<?php echo $list->jabatan ?></option>" ;
+				<?php echo $list->jabatan?></option>" ;
 			<?php
 			}
 			?>
