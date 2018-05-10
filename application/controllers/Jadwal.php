@@ -19,26 +19,29 @@ class Jadwal extends CI_Controller{
         $data = array(
             "menu" => "MenuAdmin",
             "body" => "jadwal/index",
-            "jadwal"=>$this->ModelJadwal->get_data()
+            "hari_ini" => $this->ModelJadwal->format_tanggal(date("Y-m-d"),true)
         );
         $this->load->view('template', $data);
     }
 
-    public function test(){
-        $data = $this->ModelJadwal->get_data();
+    public function get_event(){
+        $param_tgl = $this->input->post("param");
+        if (isset($param_tgl)) {
+            $data = $this->ModelJadwal->get_data_event($param_tgl);
+        }else{
+            $data = $this->ModelJadwal->get_data_event(date("Y-m-d"));
+        }
         $event = array();
         foreach ($data as $dataku) 
         {
-            $e = array();
-            $e['id'] = $dataku->id;
-            $e['title'] = 'Birthday Party';
-            $e['start'] =  $dataku->tanggal;
-                // 'end'            => $dataku->tanggal,
-            $e['allDay']         = false;
-            $e['backgroundColor']= '#00a65a';
-            $e['borderColor']    = '#00a65a'; 
-            array_push($event, $e);
+            $event[] = array(
+            'title' => $dataku->nama_depan." ".$dataku->nama_belakang." (".$dataku->nama_paket." - ".$dataku->kategori.") ",
+            'tanggal' =>  $this->ModelJadwal->format_tanggal($dataku->tanggal,true),
+            "jam"  => $this->ModelJadwal->pecah_jam($dataku->jam)
+            );
         }
         echo json_encode($event);
+        exit();
     }
+
 }

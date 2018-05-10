@@ -15,94 +15,149 @@
         <div class="col-md-12">
                 <div class="box box-primary">
                     <div class="box-header with-border">
+                      <div class="col-sm-4 ">
+                          <h4>Tampilkan Jadwal</h4>
+                              <select class="select2 form-control" name="filter" id="filter">
+                                  <option value="<?php echo date("Y-m-d");?>" selected>Jadwal Hari Ini</option>
+                                  <option value="<?php echo date("Y-m-d",mktime(0,0,0,date('m'),date('d')+1,date('Y')));?>">Jadwal Besok</option>
+                                  <option value="<?php echo date("Y-m-d",mktime(0,0,0,date('m'),date('d')+2,date('Y')));?>">Jadwal Lusa</option>
+                              </select>
+                      </div>
+                      <div class="col-sm-4 col-md-4">
+                            <h4>Lihat Jadwal Ditanggal Tertentu</h4>
+                                <input type="date" name="mulai" class="form-control mulai" id="mulai" ><button type="button" class="btn btn-success" id="cari" style="margin-top: 10px;"><i class="fa fa-search"></i> Cari</button>
+                      </div>
+                      <div class="col-sm-4 col-md-4">
+                          <h3 class="well" align="center"><?php echo $hari_ini;?></h3>
+                      </div>
                     </div><!-- /.box-header -->
                     <div class="box-body">
-                      <!-- THE CALENDAR -->
-                      <div id="kalender"></div>
+                      <table class="table">
+                        <thead id="thead_jadwal">
+                          <tr>
+                            <th colspan="3"><center><h2>Jadwal Photo</h2></center></th>
+                          </tr>
+                          <tr bgcolor="#6C7A89" style="color: white;">
+                            <th width="20%"><center>Hari</center></th>
+                            <th width="20%"><center>Jam</center></th>
+                            <th><center>Jadwal</center></th>
+                          </tr>
+                        </thead>
+                        <tbody id="tbody_jadwal">    
+                        </tbody>
+                      </table>
                     </div><!-- /.box-body -->
+                    <div class="overlay" style="display: none" id="loading">
+                      <i class="fa fa-refresh fa-spin"></i>
+                    </div>
+                      <!-- end loading -->
                 </div>
         </div>     
     </div>
 </section>
 <script>
   $(function () {
-        eventku();   //pemanggilan fungsi tampil barang.
-        // $('.mydata').dataTable();
-        //fungsi tampil barang
-        function eventku(){
+        event_today();   //pemanggilan fungsi tampil event.
+        //fungsi tampil event
+        function event_today(){
             $.ajax({
                 type  : 'ajax',
-                url   : '<?php echo base_url()?>jadwal/test',
+                url   : '<?php echo base_url()?>jadwal/get_event',
                 async : false,
                 dataType : 'json',
+                beforeSend:function(){
+                  $("#loading").css("display","block")
+                },
                 success : function(data){
-                    json_events = data;
-                    alert(JSON.parse(json_events));
+                    var html = '';
+                    var i;
+                    html += '<tr align="center">'+
+                            '<td rowspan="'+data.length+'">'+data[0].tanggal+'</td>'+
+                            '<td>'+data[0].jam+'</td>'+
+                            '<td>'+data[0].title+'</td>'+
+                            '</tr>';
+                    for(i=1; i<data.length; i++){
+                        html += '<tr align="center">'+
+                                '<td>'+data[i].jam+'</td>'+
+                                '<td>'+data[i].title+'</td>'+
+                                '</tr>';
+                    }
+                    $('#tbody_jadwal').html(html);
+                    $("#loading").css("display","none");
                 }
+
  
             });
         }
-        // $('#kalender').fullCalendar({
+        $("#filter").change(function(){
+            var param=$(this).val();
+            $.ajax({
+                type  : 'POST',
+                url   : '<?php echo base_url()?>jadwal/get_event',
+                async : false,
+                dataType : 'json',
+                data:{param:param},
+                beforeSend:function(){
+                  $("#loading").css("display","block");
+                },
+                success: function(data){
+                    if (data.length==0) {
+                      html += '<tr align="center">'+
+                              '<td colspan="3">Belum ada jadwal untuk hari yang dipilih</td>'+
+                              '</tr>';
+                    }else{
+                      var html = '';
+                      var i;
+                      html += '<tr align="center">'+
+                              '<td rowspan="'+data.length+'">'+data[0].tanggal+'</td>'+
+                              '<td>'+data[0].jam+'</td>'+
+                              '<td>'+data[0].title+'</td>'+
+                              '</tr>';
+                      for(i=1; i<data.length; i++){
+                          html += '<tr align="center">'+
+                                  '<td>'+data[i].jam+'</td>'+
+                                  '<td>'+data[i].title+'</td>'+
+                                  '</tr>';
+                      }
+                    }
+                    $('#tbody_jadwal').html(html);
+                    $("#loading").css("display","none");
+                }
+            })
 
-        // });
-    /* initialize the calendar
-     -----------------------------------------------------------------*/
-    //Date for the calendar events (dummy data)
-    var date = new Date()
-    var d    = date.getDate(),
-        m    = date.getMonth(),
-        y    = date.getFullYear()
-    $('#kalender').fullCalendar({
-      locale : 'id',
-      header    : {
-        left  : 'prev,next today',
-        center: 'title',
-        right : 'month,agendaWeek,agendaDay'
-      },
-      buttonText: {
-        today: 'today',
-        month: 'month',
-        week : 'week',
-        day  : 'day'
-      },
-      titleFormat : 'D MMMM YYYY',
-      //Random default events
-      events    : [
-
-        {
-          title          : 'Meeting',
-          start          : new Date(y, m, d, 10, 30),
-          allDay         : false,
-          backgroundColor: '#0073b7', //Blue
-          borderColor    : '#0073b7' //Blue
-        },
-        {
-          title          : 'Lunch',
-          start          : new Date(y, m, d, 12, 0),
-          end            : new Date(y, m, d, 14, 0),
-          allDay         : false,
-          backgroundColor: '#00c0ef', //Info (aqua)
-          borderColor    : '#00c0ef' //Info (aqua)
-        },
-        {
-          title          : 'Birthday Party',
-          start          : new Date(y, m, d + 1, 19, 0),
-          end            : new Date(y, m, d + 1, 22, 30),
-          allDay         : false,
-          backgroundColor: '#00a65a', //Success (green)
-          borderColor    : '#00a65a' //Success (green)
-        },
-        {
-          title          : 'Click for Google',
-          start          : new Date(y, m, 28),
-          end            : new Date(y, m, 29),
-          url            : 'http://google.com/',
-          backgroundColor: '#3c8dbc', //Primary (light-blue)
-          borderColor    : '#3c8dbc' //Primary (light-blue)
-        }
-      ],
-      editable  : false,
-      footer : false,
-    })
+        });
+        $("#cari").click(function(){
+            var param=$(".mulai").val();
+            $.ajax({
+                type  : 'POST',
+                url   : '<?php echo base_url()?>jadwal/get_event',
+                async : false,
+                dataType : 'json',
+                data:{param:param},
+                success: function(data){
+                   if (data.length==0) {
+                      html += '<tr align="center">'+
+                              '<td colspan="3">Belum ada jadwal untuk hari yang dipilih</td>'+
+                              '</tr>';
+                    }else{
+                      var html = '';
+                      var i;
+                      html += '<tr align="center">'+
+                              '<td rowspan="'+data.length+'">'+data[0].tanggal+'</td>'+
+                              '<td>'+data[0].jam+'</td>'+
+                              '<td>'+data[0].title+'</td>'+
+                              '</tr>';
+                      for(i=1; i<data.length; i++){
+                          html += '<tr align="center">'+
+                                  '<td>'+data[i].jam+'</td>'+
+                                  '<td>'+data[i].title+'</td>'+
+                                  '</tr>';
+                      }
+                    }
+                    $('#tbody_jadwal').html(html);
+                    $("#loading").css("display","none");
+                }
+            })
+        })
   })
 </script>
