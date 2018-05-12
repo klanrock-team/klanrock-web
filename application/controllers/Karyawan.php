@@ -38,10 +38,11 @@ class Karyawan extends CI_Controller{
             'nama_karyawan' => $this->input->post('Nama_Karyawan'),
             'alamat' => $this->input->post('Alamat_Karyawan'),
             'no_hp' => $this->input->post('No_HP_Karyawan'),
-            'tk_jabatan_id' => $this->input->post('Id_Jabatan')
+            'tk_jabatan_id' => $this->input->post('Id_Jabatan'),
+            'status' => 0
         );
         $this->db->insert('karyawan',$karyawan);
-        $this->session->set_flashdata('message', "Berhasil Tambah Data");
+        $this->session->set_flashdata('message', "<div class=\"alert alert-success alert-dismissible\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button>Success,Berhasil Tambah Data</div>");
         redirect('karyawan');
     }
 
@@ -70,28 +71,28 @@ class Karyawan extends CI_Controller{
         );
         $this->db->where('id',$id);
         $this->db->update('karyawan',$karyawan);
-        $this->session->set_flashdata('message', "Berhasil Update Data");
+        $this->session->set_flashdata('message', "<div class=\"alert alert-success alert-dismissible\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button>Success,Berhasil Delete Data</div>");
         redirect('karyawan');
     }
 
     public function delete(){
         $id = $this->input->post('id');
         if (!isset($id)) {
-            $this->session->set_flashdata('message', "Hapus gagal!! Data belum dipilih");
+            $this->session->set_flashdata('message',  "<div class=\"alert alert-danger alert-dismissible\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button>Error,Data Belum Dipilih</div>");
             redirect('karyawan');
         }
-        $this->db->where_in('id', $id);
-        $hapus_karyawan = $this->db->delete('karyawan');
-        if($hapus_karyawan){
+        $this->db->where_in('karyawan_id', $id);
+        $hapus_user = $this->db->delete('users');
+        if($hapus_user){
             $this->db->where_in('id', $id);
             if ($this->db->delete('karyawan')){
-                $this->session->set_flashdata('message', "Berhasil Delete Data");
+                $this->session->set_flashdata('message', "<div class=\"alert alert-success alert-dismissible\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button>Success,Berhasil Delete Data</div>");
             }
             redirect('karyawan', $data);
         }else{
             $this->db->where_in('id', $id);
             if ($this->db->delete('karyawan')){
-                $this->session->set_flashdata('message', "Berhasil Delete Data");
+                $this->session->set_flashdata('message', "<div class=\"alert alert-success alert-dismissible\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button>Success,Berhasil Delete Data</div>");
             }
             redirect('karyawan', $data);
         }

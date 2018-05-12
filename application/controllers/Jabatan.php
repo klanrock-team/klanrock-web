@@ -37,7 +37,7 @@ class Jabatan extends CI_Controller{
             'jabatan' => $this->input->post('jabatan'),
         );
         $this->db->insert('tk_jabatan',$jabatan);
-        $this->session->set_flashdata('message', "Berhasil Tambah Data");
+        $this->session->set_flashdata('message', "<div class=\"alert alert-success alert-dismissible\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button>Success,Berhasil Tambah Data</div>");
         redirect('jabatan');
     }
 
@@ -61,14 +61,14 @@ class Jabatan extends CI_Controller{
         );
         $this->db->where('id',$id);
         $this->db->update('tk_jabatan',$jabatan);
-        $this->session->set_flashdata('message', "Berhasil Update Data");
+        $this->session->set_flashdata('message', "<div class=\"alert alert-success alert-dismissible\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button>Success,Berhasil Update Data</div>");
         redirect('jabatan');
     }
 
     public function delete(){
         $id = $this->input->post('id');
         if (!isset($id)) {
-            $this->session->set_flashdata('message', "Hapus gagal!! Data belum dipilih");
+            $this->session->set_flashdata('message',  "<div class=\"alert alert-danger alert-dismissible\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button>Error,Data Belum Dipilih</div>");
             redirect('jabatan');
         }
         $this->db->where_in('tk_jabatan_id', $id);
@@ -76,13 +76,13 @@ class Jabatan extends CI_Controller{
         if($hapus_karyawan){
             $this->db->where_in('id', $id);
             if ($this->db->delete('tk_jabatan')){
-                $this->session->set_flashdata('message', "Berhasil Delete Data");
+                $this->session->set_flashdata('message', "<div class=\"alert alert-success alert-dismissible\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button>Success,Berhasil Delete Data</div>");
             }
             redirect('jabatan');
         }else{
             $this->db->where_in('id', $id);
             if ($this->db->delete('tk_jabatan')){
-                $this->session->set_flashdata('message', "Berhasil Delete Data");
+                $this->session->set_flashdata('message', "<div class=\"alert alert-success alert-dismissible\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button>Success,Berhasil Delete Data</div>");
             }
             redirect('jabatan');
         }

@@ -18,7 +18,9 @@ class ModelGalery extends CI_Model{
         return $this->db->get_where('td_gambar',array('id'=>$id));
     }
     function get_data_hapus_2($id){
-        return $this->db->get_where('td_gambar',array('galery'=>$id))->result();
+        $this->db->select("*");
+        $this->db->where_in('galery_id',$id);
+        return $this->db->get('td_gambar')->result();
     }
     function get_data_gambar($id){
         return $this->db->get_where('td_gambar', array('galery_id'=>$id));

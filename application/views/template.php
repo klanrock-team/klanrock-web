@@ -8,6 +8,9 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.5 -->
     <link rel="stylesheet" href="<?php echo base_url();?>desain/admin/bootstrap/css/bootstrap.min.css">
+    <!-- fullCalendar -->
+    <link rel="stylesheet" href="<?php echo base_url();?>desain/admin/plugins/fullcalendar/fullcalendar.min.css">
+    <link rel="stylesheet" href="<?php echo base_url();?>desain/admin/plugins/fullcalendar/fullcalendar.print.css" media="print">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <!-- Ionicons -->
@@ -45,28 +48,21 @@
     <link rel="stylesheet" href="<?php echo base_url();?>desain/admin/galery.css">    
     <!-- bootstrap wysihtml5 - text editor -->
     <link rel="stylesheet" href="<?php echo base_url();?>desain/admin/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
-
+    <!-- ckeditor -->
     <script src="<?php echo base_url(); ?>desain/ckeditor/ckeditor.js"></script>
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
     <!-- jQuery 2.1.4 -->
     <script src="<?php echo base_url();?>desain/admin/plugins/jQuery/jQuery-2.1.4.min.js"></script>
     <script src="<?php echo base_url();?>desain/JS/myjs.js"></script>
     
 </head>
-<body class="hold-transition skin-red sidebar-mini">
+<body class="hold-transition skin-red sidebar-mini sidebar-collapse">
 <div class="wrapper">
 
     <header class="main-header">
         <!-- Logo -->
         <a href="<?php echo base_url();?>" class="logo">
             <!-- mini logo for sidebar mini 50x50 pixels -->
-            <span class="logo-mini"><b>K</b>RcK</span>
+            <span class="logo-mini"><b>K</b>rcK</span>
             <!-- logo for regular state and mobile devices -->
             <span class="logo-lg"><b>Klan</b>rocK</span>
         </a>
@@ -103,7 +99,7 @@
 
        <?php $this->load->view($body);?>
         <script>
-            $(function () {
+            $(document).ready(function () {
                 //Initialize Select2 Elements
                 $(".select2").select2(); 
                 //Enable check and uncheck all functionality
@@ -133,13 +129,12 @@
                 $("[data-fancybox]").fancybox({ });
             });
         </script>
-
     </div><!-- /.content-wrapper -->
     <footer class="main-footer">
         <div class="pull-right hidden-xs">
             <b>Version</b> 1.0
         </div>
-        <strong>Copyright &copy; 2018 <a href="#">Fendrik Nurul Jadid</a>.</strong> All rights reserved.
+        <strong>Copyright &copy; 2018 <a href="#">KlanrocK Studio</a>.</strong> All rights reserved.
     </footer>
 
 </div><!-- ./wrapper -->
@@ -182,6 +177,10 @@
 <script src="<?php echo base_url();?>desain/admin/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
 <!-- Slimscroll -->
 <script src="<?php echo base_url();?>desain/admin/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<!-- fullCalendar -->
+<script src="<?php echo base_url();?>desain/admin/plugins/moment/moment.js"></script>
+<script src="<?php echo base_url();?>desain/admin/plugins/fullcalendar/fullcalendar.min.js"></script>
+<!-- Page specific script -->
 <!-- FastClick -->
 <script src="<?php echo base_url();?>desain/admin/plugins/fastclick/fastclick.min.js"></script>
 <!-- AdminLTE App -->
@@ -194,5 +193,6 @@
 <script src="<?php echo base_url();?>desain/admin/plugins/dropzone/dropzone.js" type="text/javascript"></script>
 <script src="<?php echo base_url();?>desain/admin/plugins/dropify/dist/js/dropify.js" type="text/javascript"></script>
 <script src="<?php echo base_url();?>desain/admin/plugins/fancybox/fancybox.js" type="text/javascript"></script>
+
 </body>
 </html>
