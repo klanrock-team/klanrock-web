@@ -35,12 +35,14 @@
                       <table class="table">
                         <thead id="thead_jadwal">
                           <tr>
-                            <th colspan="3"><center><h2>Jadwal Photo</h2></center></th>
+                            <th colspan="5"><center><h2>Jadwal Photo</h2></center></th>
                           </tr>
                           <tr bgcolor="#6C7A89" style="color: white;">
                             <th width="20%"><center>Hari</center></th>
-                            <th width="20%"><center>Jam</center></th>
-                            <th><center>Jadwal</center></th>
+                            <th width="20%"><center>Waktu</center></th>
+                            <th><center>Pelanggan</center></th>
+                            <th><center>Paket</center></th>
+                            <th><center>Kategori</center></th>
                           </tr>
                         </thead>
                         <tbody id="tbody_jadwal">    
@@ -74,12 +76,16 @@
                     html += '<tr align="center">'+
                             '<td rowspan="'+data.length+'">'+data[0].tanggal+'</td>'+
                             '<td>'+data[0].jam+'</td>'+
-                            '<td>'+data[0].title+'</td>'+
+                            '<td>'+data[0].pelanggan+'</td>'+
+                            '<td>'+data[0].paket+'</td>'+
+                            '<td>'+data[0].kategori+'</td>'+
                             '</tr>';
                     for(i=1; i<data.length; i++){
                         html += '<tr align="center">'+
                                 '<td>'+data[i].jam+'</td>'+
-                                '<td>'+data[i].title+'</td>'+
+                                '<td>'+data[i].pelanggan+'</td>'+
+                                '<td>'+data[i].paket+'</td>'+
+                                '<td>'+data[i].kategori+'</td>'+
                                 '</tr>';
                     }
                     $('#tbody_jadwal').html(html);
@@ -103,7 +109,7 @@
                 success: function(data){
                     if (data.length==0) {
                       html += '<tr align="center">'+
-                              '<td colspan="3">Belum ada jadwal untuk hari yang dipilih</td>'+
+                              '<td colspan="5">Belum ada jadwal untuk hari yang dipilih</td>'+
                               '</tr>';
                     }else{
                       var html = '';
@@ -111,13 +117,17 @@
                       html += '<tr align="center">'+
                               '<td rowspan="'+data.length+'">'+data[0].tanggal+'</td>'+
                               '<td>'+data[0].jam+'</td>'+
-                              '<td>'+data[0].title+'</td>'+
+                              '<td>'+data[0].pelanggan+'</td>'+
+                              '<td>'+data[0].paket+'</td>'+
+                              '<td>'+data[0].kategori+'</td>'+
                               '</tr>';
                       for(i=1; i<data.length; i++){
                           html += '<tr align="center">'+
-                                  '<td>'+data[i].jam+'</td>'+
-                                  '<td>'+data[i].title+'</td>'+
-                                  '</tr>';
+                                '<td>'+data[i].jam+'</td>'+
+                                '<td>'+data[i].pelanggan+'</td>'+
+                                '<td>'+data[i].paket+'</td>'+
+                                '<td>'+data[i].kategori+'</td>'+
+                                '</tr>';
                       }
                     }
                     $('#tbody_jadwal').html(html);
@@ -137,7 +147,7 @@
                 success: function(data){
                    if (data.length==0) {
                       html += '<tr align="center">'+
-                              '<td colspan="3">Belum ada jadwal untuk hari yang dipilih</td>'+
+                              '<td colspan="5">Belum ada jadwal untuk hari yang dipilih</td>'+
                               '</tr>';
                     }else{
                       var html = '';
@@ -145,13 +155,17 @@
                       html += '<tr align="center">'+
                               '<td rowspan="'+data.length+'">'+data[0].tanggal+'</td>'+
                               '<td>'+data[0].jam+'</td>'+
-                              '<td>'+data[0].title+'</td>'+
+                              '<td>'+data[0].pelanggan+'</td>'+
+                              '<td>'+data[0].paket+'</td>'+
+                              '<td>'+data[0].kategori+'</td>'+
                               '</tr>';
                       for(i=1; i<data.length; i++){
                           html += '<tr align="center">'+
-                                  '<td>'+data[i].jam+'</td>'+
-                                  '<td>'+data[i].title+'</td>'+
-                                  '</tr>';
+                                '<td>'+data[i].jam+'</td>'+
+                                '<td>'+data[i].pelanggan+'</td>'+
+                                '<td>'+data[i].paket+'</td>'+
+                                '<td>'+data[i].kategori+'</td>'+
+                                '</tr>';
                       }
                     }
                     $('#tbody_jadwal').html(html);

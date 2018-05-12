@@ -35,9 +35,11 @@ class Jadwal extends CI_Controller{
         foreach ($data as $dataku) 
         {
             $event[] = array(
-            'title' => $dataku->nama_depan." ".$dataku->nama_belakang." (".$dataku->nama_paket." - ".$dataku->kategori.") ",
+            'pelanggan' => $dataku->nama_depan,
             'tanggal' =>  $this->ModelJadwal->format_tanggal($dataku->tanggal,true),
-            "jam"  => $this->ModelJadwal->pecah_jam($dataku->jam)
+            "jam"  => $this->ModelJadwal->pecah_jam($dataku->jam)." - ".$this->ModelJadwal->akhir_jam($dataku->jam,$dataku->jam_tambahan),
+            'paket' => $dataku->nama_paket,
+            'kategori' => $dataku->kategori
             );
         }
         echo json_encode($event);

@@ -8,10 +8,11 @@
 class ModelJadwal extends CI_Model{
 
     function get_data_event($param_tgl){
+        $this->db->order_by("jam","asc");
         $this->db->join('tmst_paket','tmst_paket.id=td_transaksi.paket_id');
         $this->db->join('tmst_pelanggan','tmst_pelanggan.id=td_transaksi.pelanggan_id');
         $this->db->join('tk_kategori','tk_kategori.id=tmst_paket.tk_kategori_id');
-        $this->db->select('td_transaksi.id as id,nama_depan,nama_belakang,nama_paket,tanggal,jam,kategori');
+        $this->db->select('td_transaksi.id as id,nama_depan,nama_belakang,nama_paket,tanggal,jam,kategori,jam_tambahan');
         return $this->db->get_where('td_transaksi',array('tanggal'=>$param_tgl,'status !='=>'booking'))->result();
     }
     function format_tanggal($tanggal,$cetak_hari=false){
@@ -33,6 +34,16 @@ class ModelJadwal extends CI_Model{
         for ($i=0 ; $i < 2  ; $i++ ) { 
             $ja[$i] = $j[$i];
         }
+        return implode(":",$ja);
+    }
+    function akhir_jam($jam,$tambah){
+        $j = explode(":", $jam);
+        $ja = array();
+        for ($i=0 ; $i < 2  ; $i++ ) { 
+            $ja[$i] = $j[$i];
+        }
+        $plus = (int)$ja[0]+$tambah;
+        $ja[0] = $plus;
         return implode(":",$ja);
     }
 
