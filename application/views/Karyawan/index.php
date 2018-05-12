@@ -48,7 +48,7 @@
                             <td><?php echo $value->nama_karyawan?></td>
                              <td><?php echo $value->alamat?></td>
                               <td><?php echo $value->no_hp?></td>
-                               <td><?php echo $value->tk_jabatan_id?></td>
+                               <td><?php echo $value->jabatan?></td>
                             <td>
                                 <a href="<?php echo base_url(); ?>Karyawan/edit/<?php echo $value->id?>"><button type="button" class="btn btn-xs btn-warning btn-flat" title="edit data"><i class="fa fa-edit"></i></button></a>
                                 <?php if($value->status==0){?>
