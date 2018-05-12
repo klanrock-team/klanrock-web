@@ -15,10 +15,7 @@
     <div class="row">
         <div class="col-md-12">
                 <?php if($this->session->flashdata()){?>
-                    <div class="alert alert-info alert-dismissible">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                        <?php echo $this->session->flashdata('message');?>    
-                    </div>
+                    <?php echo $this->session->flashdata('message');?>    
                 <?php
                     }
                 ?>
@@ -53,9 +50,18 @@
                               <td><?php echo $value->no_hp?></td>
                                <td><?php echo $value->jabatan?></td>
                             <td>
-                                <a href="<?php echo base_url(); ?>Karyawan/edit/<?php echo $value->id?>"><button type="button" class="btn btn-xs btn-warning btn-flat" title="edit"><i class="fa fa-edit"></i></button></a>
-                                    </td>
-                                </tr>
+                                <a href="<?php echo base_url(); ?>Karyawan/edit/<?php echo $value->id?>"><button type="button" class="btn btn-xs btn-warning btn-flat" title="edit data"><i class="fa fa-edit"></i></button></a>
+                                <?php if($value->status==0){?>
+                                <a href="<?php echo base_url(); ?>users/input/<?php echo $value->id?>"><button type="button" class="btn btn-xs btn-primary btn-flat" title="Create user login"><i class="fa fa-pencil"></i> Create Login</button></a>
+                                <?php
+                                }else{?>
+                                <a href="<?php echo base_url(); ?>users/edit/<?php echo $value->id?>"><button type="button" class="btn btn-xs btn-success btn-flat" title="Update user login"><i class="fa fa-edit"></i> Update Login</button></a>
+                                <a href="<?php echo base_url(); ?>users/delete/<?php echo $value->id?>"><button type="button" class="btn btn-xs btn-danger btn-flat" title="Hapus user login"><i class="fa fa-trash-o"></i> Hapus Login</button></a>
+                                <?php
+                                }
+                                ?>
+                                </td>
+                            </tr>
                                 <?php
                                 }
                                 ?>
