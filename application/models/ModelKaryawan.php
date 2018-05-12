@@ -10,14 +10,13 @@ class ModelKaryawan extends CI_Model{
     function get_data(){
        $this->db->join("tk_jabatan",'tk_jabatan.id=karyawan.tk_jabatan_id');
         $this->db->order_by('id','asc');
-        $this->db->select("karyawan.id as id,jabatan,nama_karyawan,no_hp,alamat");
+        $this->db->select("karyawan.id as id,jabatan,nama_karyawan,no_hp,alamat,status");
 
         return $this->db->get('karyawan')->result();
         
     }
     function get_data_edit($id){
         return $this->db->get_where('karyawan', array('id'=>$id));
-         //$this->db->join('tk_jabatan.id=karyawan.tk_jabatan_id');
 
     }
     function get_jabatan(){
