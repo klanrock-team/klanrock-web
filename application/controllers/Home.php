@@ -17,7 +17,7 @@ class Home extends CI_Controller{
     public function index(){
         $data = array(
             "menu" => "MenuAdmin",
-            "body" => "home/home",
+            "body" => "home/index",
             // "country" => file("http://api.hostip.info/country.php?ip=".$_SERVER['REMOTE_ADDR']),
             // "today" => $this->ModelHome->get_data_today(),
             // "kemarin" => $this->ModelHome->get_data_kemarin(),
