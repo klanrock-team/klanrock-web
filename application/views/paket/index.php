@@ -35,6 +35,7 @@
                             <thead>
                             <tr>
                                 <th width="8%">
+
                                     <!-- <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="fa fa-square-o"></i></button> -->
                                 </th>
                                 <th>Nama Paket</th>
@@ -58,6 +59,7 @@
                                     <td><?php echo $value->kategori?></td>
                                     <td>
                                         <a href="<?php echo base_url(); ?>paket/edit/<?php echo $value->id?>"><button type="button" class="btn btn-xs btn-warning btn-flat" title="edit"><i class="fa fa-edit"></i></button></a>
+                                        <a href="<?php echo base_url(); ?>paket/paketphoto/<?php echo $value->id?>"><button type="button" class="btn btn-xs btn-success btn-flat" title="Tambah Foto"><i class="fa fa-camera"></i> Add Photo</button></a>
                                     </td>
                                 </tr>
                                 <?php

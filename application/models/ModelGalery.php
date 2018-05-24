@@ -25,5 +25,14 @@ class ModelGalery extends CI_Model{
     function get_data_gambar($id){
         return $this->db->get_where('td_gambar', array('galery_id'=>$id));
     }
+    function get_galery(){
+        $this->db->join("td_gambar","td_gambar.galery_id=galery.id");
+        $this->db->select("nama_gambar,galery.id as id,nama_galery,keterangan");
+        $this->db->group_by("nama_galery");
+        return $this->db->get("galery")->result();
+    }
+    function get_count($id){
+        return $this->db->get_where("td_gambar",array("galery_id"=>$id))->num_rows();
+    }
 
 }
