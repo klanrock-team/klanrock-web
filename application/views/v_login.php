@@ -1,25 +1,44 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" >
 <head>
-	<title>Membuat Login Dengan CodeIgniter | www.malasngoding.com</title>
+  <meta charset="UTF-8">
+  <title>Calm breeze login screen</title>
+   <link rel="stylesheet" href="<?php echo base_url();?>desain/Login/login.css">  
 </head>
 <body>
-	<h1>Selamat datang di Klanrock Jember <br/> www.klancrock.com</h1>
-	<form action="<?php echo base_url(); ?>" method="post">		
-		<table>
-			<tr>
-				<td>Username</td>
-				<td><input type="text" name="username"></td>
-			</tr>
-			<tr>
-				<td>Password</td>
-				<td><input type="password" name="password"></td>
-			</tr>
-			<tr>
-				<td></td>
-				<td><input type="submit" value="Login"></td>
-			</tr>
-		</table>
-	</form>
+  <div class="wrapper">
+  <div class="container">
+    <h1>Welcome</h1>
+    <form action="<?php echo base_url(); ?>login/aksi_login" method="post">
+    <form class="form">
+      <input type="text" name="username" placeholder="Username">
+      <input type="password" name="password" placeholder="Password">
+      <input list="Jabatan" name="jabatan" placeholder="Jabatan">
+      <datalist id="Jabatan">
+          <option value="Admin">
+          <option value="Manager">
+          <option value="Owner">
+          <option value="Fotografer">
+      </datalist>
+      <button type="submit" name="Login" id="login-button">Login</button>
+    </form>
+  </div>
+  
+  <ul class="bg-bubbles">
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+  </ul>
+</div>
+ <!-- <script src="<?php echo base_url();?>desain/admin/plugins/jQuery/jQuery-2.1.4.min.js"></script> -->
+    <script src="<?php echo base_url();?>desain/JS/login.js"></script>
+
 </body>
 </html>

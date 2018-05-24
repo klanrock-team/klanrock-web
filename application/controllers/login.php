@@ -21,7 +21,7 @@ class Login extends CI_Controller{
 		$cek2 = $this->m_login->cek_login($where)->row();
 		if($cek > 0){
 			 $this->load->library('encrypt'); 
-            $key = 'uus1234';
+           // $key = 'uus1234';
             $password_encrypt =  $this->encrypt->decode($cek2->password, $key);
             if ($password==$password_encrypt) {
                 $data_session = array(

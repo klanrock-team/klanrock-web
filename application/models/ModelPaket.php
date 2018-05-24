@@ -14,5 +14,7 @@ class ModelPaket extends CI_Model{
         $this->db->order_by('id','asc');
         return $this->db->get('tk_kategori')->result();
     }
-
+    function total_rows() {
+         return $this->db->get('tmst_paket')->num_rows();
+    }
 }
