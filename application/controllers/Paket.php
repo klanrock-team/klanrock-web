@@ -163,7 +163,7 @@ class Paket extends CI_Controller{
 
 
     public function get_data(){
-        $data = $this->ModelPaket->get_data();
+        $data = $this->ModelPaket->get_data_paket();
         $paket_foto = array();
         foreach ($data as $paket) {
             $p = array(
