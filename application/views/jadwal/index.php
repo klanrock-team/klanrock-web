@@ -73,20 +73,26 @@
                 success : function(data){
                     var html = '';
                     var i;
-                    html += '<tr align="center">'+
-                            '<td rowspan="'+data.length+'">'+data[0].tanggal+'</td>'+
-                            '<td>'+data[0].jam+'</td>'+
-                            '<td>'+data[0].pelanggan+'</td>'+
-                            '<td>'+data[0].paket+'</td>'+
-                            '<td>'+data[0].kategori+'</td>'+
-                            '</tr>';
-                    for(i=1; i<data.length; i++){
-                        html += '<tr align="center">'+
-                                '<td>'+data[i].jam+'</td>'+
-                                '<td>'+data[i].pelanggan+'</td>'+
-                                '<td>'+data[i].paket+'</td>'+
-                                '<td>'+data[i].kategori+'</td>'+
-                                '</tr>';
+                    if (data.length==0) {
+                      html += '<tr align="center">'+
+                              '<td colspan="5">Belum ada jadwal untuk hari ini</td>'+
+                              '</tr>';
+                    }else{
+                      html += '<tr align="center">'+
+                              '<td rowspan="'+data.length+'">'+data[0].tanggal+'</td>'+
+                              '<td>'+data[0].jam+'</td>'+
+                              '<td>'+data[0].pelanggan+'</td>'+
+                              '<td>'+data[0].paket+'</td>'+
+                              '<td>'+data[0].kategori+'</td>'+
+                              '</tr>';
+                      for(i=1; i<data.length; i++){
+                          html += '<tr align="center">'+
+                                  '<td>'+data[i].jam+'</td>'+
+                                  '<td>'+data[i].pelanggan+'</td>'+
+                                  '<td>'+data[i].paket+'</td>'+
+                                  '<td>'+data[i].kategori+'</td>'+
+                                  '</tr>';
+                      }
                     }
                     $('#tbody_jadwal').html(html);
                     $("#loading").css("display","none");
