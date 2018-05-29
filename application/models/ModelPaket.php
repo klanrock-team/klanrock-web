@@ -22,12 +22,13 @@ class ModelPaket extends CI_Model{
         $this->db->order_by('id','asc');
         return $this->db->get('tk_kategori')->result();
     }
+    function total_rows() {
+         return $this->db->get('tmst_paket')->num_rows();
+    }
     function get_data_hapus($id){
         return $this->db->get_where('td_gambar',array('id'=>$id));
     }
     function get_data_gambar($id){
         return $this->db->get_where('td_gambar', array('tmst_paket_id'=>$id));
     }
-
-
 }
