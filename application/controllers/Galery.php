@@ -163,4 +163,20 @@ class Galery extends CI_Controller{
         
     }
 
+    public function get_data(){
+        $data = $this->ModelGalery->get_galery();
+        $galeryku = array();
+        foreach ($data as $galery) {
+            $g = array(
+                "id" => $galery->id,
+                "nama_galery" => $galery->nama_galery,
+                "url_gambar" => base_url()."assets/images/".$galery->nama_gambar,
+                "keterangan" => htmlspecialchars(strip_tags(stripcslashes(str_replace("\r\n","",$galery->keterangan)))),
+                "jumlah_foto" => $this->ModelGalery->get_count($galery->id)
+            );
+            array_push($galeryku, $g);
+        }
+        echo json_encode(array("galery"=>$galeryku));    
+    }
+
 }
