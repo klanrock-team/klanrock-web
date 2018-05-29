@@ -24,5 +24,8 @@ class ModelKaryawan extends CI_Model{
         return $this->db->get('tk_jabatan')->result();
         
     }
+    function total_rows() {
+         return $this->db->get('karyawan')->num_rows();
+    }
 
 }
