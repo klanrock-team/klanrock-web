@@ -8,6 +8,7 @@ class Users extends CI_Controller{
         $this->load->library(array('ion_auth', 'form_validation'));
         $this->load->helper(array('url', 'language'));
         $this->load->model('ModelUsers');
+        $this->load->model('ModelLogin');
     }
 
     public function input(){
@@ -21,19 +22,28 @@ class Users extends CI_Controller{
 
     public function insert(){
         $id = $this->input->post('id');
-        $users = array(
-            'username' => $this->input->post('username'),
-            'password' => $this->input->post('password'),
-            'karyawan_id' => $id
-        );
-        $this->db->insert('users',$users);
-        $karyawan = array(
-            'status' => 1
-        );
-        $this->db->where('id',$id);
-        $this->db->update('karyawan',$karyawan);
-        $this->session->set_flashdata('message', "<div class=\"alert alert-success alert-dismissible\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button>Success,User Login Berhasil Dibuat</div>");
-        redirect('karyawan');
+        $pw = $this->input->post('password');
+        $cek = $this->ModelLogin->cek_username($this->input->post('username'))->num_rows();
+        if ($cek > 0) {
+            $this->session->set_flashdata('message', "<div class=\"alert alert-danger alert-dismissible\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button>Error,Username telah digunakan</div>");
+            redirect('users/input/'.$id);
+        }else{
+            $pw_hash = password_hash($pw,PASSWORD_DEFAULT,array("cost"=>10));
+            $users = array(
+                'username' => $this->input->post('username'),
+                'password' => $pw_hash,
+                'karyawan_id' => $id,
+                'level' => $this->input->post('level')
+            );
+            $this->db->insert('users',$users);
+            $karyawan = array(
+                'status' => 1
+            );
+            $this->db->where('id',$id);
+            $this->db->update('karyawan',$karyawan);
+            $this->session->set_flashdata('message', "<div class=\"alert alert-success alert-dismissible\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button>Success,User Login Berhasil Dibuat</div>");
+            redirect('karyawan');
+        }
     }
 
     public function edit(){
@@ -51,9 +61,12 @@ class Users extends CI_Controller{
 
     public function update(){
         $id = $this->input->post('id');
+        $pw = $this->input->post('password');
+        $pw_hash = password_hash($pw,PASSWORD_DEFAULT,array("cost"=>10));
         $users = array(
             'username' => $this->input->post('username'),
-            'password' => $this->input->post('password')
+            'password' => $pw_hash,
+            'level' => $this->input->post('level')
         );
         $this->db->where('karyawan_id',$id);
         $this->db->update('users',$users);

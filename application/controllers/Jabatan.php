@@ -71,6 +71,9 @@ class Jabatan extends CI_Controller{
             $this->session->set_flashdata('message',  "<div class=\"alert alert-danger alert-dismissible\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button>Error,Data Belum Dipilih</div>");
             redirect('jabatan');
         }
+
+
+
         $this->db->where_in('tk_jabatan_id', $id);
         $hapus_karyawan = $this->db->delete('karyawan');
         if($hapus_karyawan){
