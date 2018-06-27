@@ -59,16 +59,16 @@ class Transaksi extends CI_Controller{
     }
 
     public function get_transaksi(){
-        $param = $this->input->post("param");
-        if (isset($param)) {
-            if ($param==null) {
+        // $param = $this->input->post("param");
+        // if (isset($param)) {
+        //     if ($param==null) {
                 $transaksi = $this->ModelTransaksi->get_full_transaksi();    
-            }else{
-                $transaksi = $this->ModelTransaksi->get_data($param);
-            } 
-        }else{
-            $transaksi = $this->ModelTransaksi->get_data(date("Y-m-d"));
-        }
+        //     }else{
+        //         $transaksi = $this->ModelTransaksi->get_data($param);
+        //     } 
+        // }else{
+        //     $transaksi = $this->ModelTransaksi->get_data(date("Y-m-d"));
+        // }
         $data_transaksi = array();
         foreach ($transaksi as $data) {
             $dt = array(
