@@ -16,6 +16,11 @@
     <div class="row">
         <?php echo form_open('users/insert');echo form_hidden('id', $this->uri->segment(3));?>
         <div class="col-md-12">
+        <?php 
+            if($this->session->flashdata()){
+                echo $this->session->flashdata('message');
+            }
+        ?>    
             <div class="box box-primary">
                 <div class="box-body">
                     <div class="row">

@@ -1,16 +1,15 @@
 
 <section class="content-header">
     <h1>
-        karyawan
+        Transaksi Valid
         <small>Preview</small>
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">karyawan</a></li>
-        <li class="active">List</li>
+        <li><a href="#">Transaksi</a></li>
+        <li class="active">Transaksi valid</li>
     </ol>
 </section><br>
-<?php echo form_open('karyawan/delete');?>
 <section class="content">
     <div class="row">
         <div class="col-md-12">
@@ -25,10 +24,10 @@
                             <button type="button" class="btn btn-default btn-sm checkbox-toggle btn-flat" title="Select All"><i class="fa fa-square-o"></i></button>
                             <div class="btn-group">
                                 <a href="#" data-toggle="modal" data-target="#hapus"><button type="button" class="btn btn-default btn-flat btn-sm " title="Hapus"><i class="fa fa-trash-o"></i></button></a>
-                                <a href="<?php echo base_url(); ?>Karyawan/input" ><button type="button" class="btn btn-default btn-sm btn-flat" title="Tambah Data"><i class="fa fa-plus-square"></i></button></a>
+                                <a href="<?php echo base_url(); ?>karyawan/input" ><button type="button" class="btn btn-default btn-sm btn-flat" title="Tambah Data"><i class="fa fa-plus-square"></i></button></a>
                             </div>
                         </div>
-                    </div><!-- /.box-header -->
+                    </div>
                     <div class="box-body tabel-box">
                         <table class="table table-striped" id="example1">
                             <thead>
@@ -38,6 +37,7 @@
                                 <th>Alamat</th>
                                 <th>No Hp</th>
                                 <th>Jabatan</th>
+                                <th>User Level</th>
                                 <th>Opsi</th>
                             </tr>
                     </thead>
@@ -46,9 +46,28 @@
                          <tr>
                             <td><input class="checkbox id_checkbox" type="checkbox" name="id[]" value="<?php echo $value->id; ?>"></td>
                             <td><?php echo $value->nama_karyawan?></td>
-                             <td><?php echo $value->alamat?></td>
-                              <td><?php echo $value->no_hp?></td>
-                               <td><?php echo $value->jabatan?></td>
+                            <td><?php echo $value->alamat?></td>
+                            <td><?php echo $value->no_hp?></td>
+                            <td><?php echo $value->jabatan?></td>
+                            <td><?php if ($value->status==0){
+                                echo "-";
+                            }else{
+                                switch ($value->level) {
+                                    case 1:
+                                        echo "Admin";
+                                        break;
+                                    case 2:
+                                        echo "Fotografer";
+                                        break;
+                                    case 3:
+                                        echo "Owner/Manager";
+                                        break;
+                                    
+                                    default:
+                                        echo "-";
+                                        break;
+                                }
+                            }?></td>
                             <td>
                                 <a href="<?php echo base_url(); ?>Karyawan/edit/<?php echo $value->id?>"><button type="button" class="btn btn-xs btn-warning btn-flat" title="edit data"><i class="fa fa-edit"></i></button></a>
                                 <?php if($value->status==0){?>
@@ -79,8 +98,7 @@
                 <h4 class="modal-title">Hapus karyawan??</h4>
               </div>
               <div class="modal-body">
-                Ketika menghapus pegawai,semua nama pegawai yang menggunakan pegawai akan ikut terhapus<br>
-                Apakah anda yakin? 
+                Ketika menghapus data karyawan,semua data login yang digunakan oleh karyawan akan ikut terhapus,Apakah anda yakin? 
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Batal</button>
@@ -94,7 +112,6 @@
         <!-- /.modal -->
     </div>     
 </section>
-<?php echo form_close();?>
 <script type="text/javascript">
     $(function () {
         $('.tabel-box input[type="checkbox"]').iCheck({
