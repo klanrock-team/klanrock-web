@@ -1,16 +1,15 @@
 
 <section class="content-header">
     <h1>
-        karyawan
+        Transaksi Valid
         <small>Preview</small>
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">karyawan</a></li>
-        <li class="active">List</li>
+        <li><a href="#">Transaksi</a></li>
+        <li class="active">Transaksi valid</li>
     </ol>
 </section><br>
-<?php echo form_open('karyawan/delete');?>
 <section class="content">
     <div class="row">
         <div class="col-md-12">
@@ -25,10 +24,10 @@
                             <button type="button" class="btn btn-default btn-sm checkbox-toggle btn-flat" title="Select All"><i class="fa fa-square-o"></i></button>
                             <div class="btn-group">
                                 <a href="#" data-toggle="modal" data-target="#hapus"><button type="button" class="btn btn-default btn-flat btn-sm " title="Hapus"><i class="fa fa-trash-o"></i></button></a>
-                                <a href="<?php echo base_url(); ?>Karyawan/input" ><button type="button" class="btn btn-default btn-sm btn-flat" title="Tambah Data"><i class="fa fa-plus-square"></i></button></a>
+                                <a href="<?php echo base_url(); ?>karyawan/input" ><button type="button" class="btn btn-default btn-sm btn-flat" title="Tambah Data"><i class="fa fa-plus-square"></i></button></a>
                             </div>
                         </div>
-                    </div><!-- /.box-header -->
+                    </div>
                     <div class="box-body tabel-box">
                         <table class="table table-striped" id="example1">
                             <thead>
@@ -113,7 +112,6 @@
         <!-- /.modal -->
     </div>     
 </section>
-<?php echo form_close();?>
 <script type="text/javascript">
     $(function () {
         $('.tabel-box input[type="checkbox"]').iCheck({
