@@ -186,7 +186,7 @@
         }
         $(".verif").click(function(){
             var id=$(this).attr("id");
-            alert(id);
+            // alert(id);
             $.ajax({
                 type  : 'POST',
                 url   : '<?php echo base_url()?>transaksi/get_detail_invoice',

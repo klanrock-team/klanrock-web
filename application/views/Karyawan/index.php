@@ -1,13 +1,13 @@
 
 <section class="content-header">
     <h1>
-        Transaksi Valid
+        Karyawan
         <small>Preview</small>
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Transaksi</a></li>
-        <li class="active">Transaksi valid</li>
+        <li><a href="#">Klanrock</a></li>
+        <li class="active">Karyawan</li>
     </ol>
 </section><br>
 <section class="content">
