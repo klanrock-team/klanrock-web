@@ -32,20 +32,37 @@ class Transaksi extends CI_Controller{
         $this->load->view('template', $data);
     }
     public function booking(){
+        $timestamp = date("Y-m-d h:i:s");
+        $tambah_jam = $this->input->post('jam_tambah');
+        $total_jam = (int)$tambah_jam+1; 
+        $total = $this->input->post("total");
         $data_transaksi = array(
             'tanggal' => $this->input->post('tanggal'),
             'jam' => $this->input->post('jam'),
             'pelanggan_id' => $this->input->post('id_pelanggan'),
             'paket_id' => $this->input->post('id_paket'),
             'status' => $this->input->post('status'),
-            "jam_tambahan" => $this->input->post('jam_tambah'),
-            "tambahan_orang"=> $this->input->post('orang_tambah')
+            "jam_tambahan" => $total_jam,
+            "tambahan_orang"=> $this->input->post('orang_tambah'),
+            "total" => $total,
+            "timestamp" => $timestamp
         );
         $input_data = $this->db->insert('td_transaksi',$data_transaksi);
         if ($input_data) {
+            if ($total>100000) {
+                $dp = 100000;
+            }else{
+                $dp = (int)$total/2;
+            }
+            $text = "Transaksi berhasil,silahkan lakukan pembayaran sebesar Rp.".number_format($total,2,",",".")." atau dengan dp sebesar Rp.".number_format($dp,2,",",".")." ke no rekening di bawah ini untuk dapat melakukan booking secara penuh.";
+            $new_data = $this->ModelTransaksi->get_max()->row_array();
             $response = array(
                 "message" => "Permintaan Berhasil Di Proses",
-                "succes" => 1
+                "succes" => 1,
+                "id_transaksi" => $new_data["id"],
+                "text" => $text,
+                "total" => $total,
+                "minim_dp" => $dp
             );
             echo json_encode($response);
         }else{
@@ -59,16 +76,16 @@ class Transaksi extends CI_Controller{
     }
 
     public function get_transaksi(){
-        // $param = $this->input->post("param");
-        // if (isset($param)) {
-        //     if ($param==null) {
+        $param = $this->input->post("param");
+        if (isset($param)) {
+            if ($param==null) {
                 $transaksi = $this->ModelTransaksi->get_full_transaksi();    
-        //     }else{
-        //         $transaksi = $this->ModelTransaksi->get_data($param);
-        //     } 
-        // }else{
-        //     $transaksi = $this->ModelTransaksi->get_data(date("Y-m-d"));
-        // }
+            }else{
+                $transaksi = $this->ModelTransaksi->get_data($param);
+            } 
+        }else{
+            $transaksi = $this->ModelTransaksi->get_data(date("Y-m-d"));
+        }
         $data_transaksi = array();
         foreach ($transaksi as $data) {
             $dt = array(
@@ -223,4 +240,86 @@ class Transaksi extends CI_Controller{
         redirect('transaksi/invoice');
     }
 
+    public function konfirmasi_bayar(){
+        $timestamp = date("Y-m-d h:i:s");
+        $total = $this->input->post("total");
+        $bayar = $this->input->post("bayar");
+        $sisa = (int)$total-(int)$bayar;
+        $id_transaksi = $this->input->post("id_transaksi");
+        if ($sisa<0) {
+            $sisa=0;
+        }
+        $data_trans = array(
+            "jam_bayar" => $this->input->post("jam_bayar"),
+            "tanggal_bayar" => $this->input->post("tanggal_bayar"),
+            "td_transaksi_id" => $id_transaksi,
+            "bayar" => $bayar,
+            "sisa" => $sisa,
+            "time_stamp" => $timestamp
+        );
+        $input = $this->db->insert("detail_transaksi",$data_trans);
+        if ($input) {
+            $update_status  = array(
+                "status" => "invoice",
+            );
+            $this->db->where("id",$id_transaksi);
+            $this->db->update("td_transaksi",$update_status);
+            $respon = array(
+                "message" => "konfirmasi pembayaran berhasil di kirim",
+                "succes" => 1
+            );
+            echo json_encode($respon);
+        }else{
+            $respon = array(
+                "message" => "konfirmasi pembayaran gagal di kirim",
+                "succes" => 0
+            );
+            echo json_encode($respon);
+        }       
+    }
+
+    public function list_order(){
+        $id_pelanggan = $this->input->post("id_pelanggan");
+        $list_order = $this->ModelTransaksi->get_data_order($id_pelanggan);
+        $data_order = array();
+            foreach ($list_order as $list) {
+                $data_gambar = $this->ModelTransaksi->get_gambar_paket($list->paket_id)->row_array();
+                $kat = $this->ModelTransaksi->get_kategori($list->tk_kategori_id)->row_array();
+                if ($list->status == "lunas" || $list->status == "dp") {
+                    $status = $list->status;
+                }else{
+                    if ($list->status == "invoice") {
+                        $status = "Menunggu konfirmasi";
+                    }else{
+                        $status = "Belum dibayar";
+                    }
+                }
+                $total = $list->total;
+                if ($total>100000) {
+                    $dp = 100000;
+                }else{
+                    $dp = (int)$total/2;
+                }
+                $text = "Transaksi berhasil,silahkan lakukan pembayaran sebesar Rp.".number_format($total,2,",",".")." atau dengan dp sebesar Rp.".number_format($dp,2,",",".")." ke no rekening di bawah ini untuk dapat melakukan booking secara penuh.";
+                $dor = array(
+                    "nama_paket" => $list->nama_paket,
+                    "kategori" => $kat["kategori"],
+                    "tanggal" => $this->ModelJadwal->format_tanggal($list->tanggal,true),
+                    "jam"  => $this->ModelJadwal->pecah_jam($list->jam)." - ".$this->ModelJadwal->akhir_jam($list->jam,$list->jam_tambahan),
+                    "tmbh_orang" => $list->tambahan_orang,
+                    "tmbh_jam" => $list->jam_tambahan,
+                    "timestamp" => date("Y/m/d h:i",strtotime($list->tanggal_transaksi)),
+                    "status" => $status,
+                    "total" => $total,
+                    "gambar" => base_url()."assets/images/".$data_gambar["nama_gambar"],
+                    "minim_dp" => $dp,
+                    "text" => $text,
+                    "id_transaksi" => $list->id_transaksi
+
+                );
+                array_push($data_order, $dor);
+            }    
+        echo json_encode(array("list_order"=>$data_order));
+
+    }
 }

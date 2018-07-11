@@ -32,6 +32,7 @@ class Pelanggan extends CI_Controller{
                     'nama_depan' => $nama_depan,
                     'nama_belakang' => $nama_belakang,
                     'no_telp' => $no_telp,
+                    'alamat' => "Alamat anda"
                 ); 
                 $simpan_data = $this->db->insert('tmst_pelanggan',$data_pelanggan);
                 if ($simpan_data) {
@@ -44,6 +45,11 @@ class Pelanggan extends CI_Controller{
                         'tmst_pelanggan_id' => $id_pelanggan,
                     );
                     $save = $this->db->insert('users',$data_login);
+                    $img_profil = array(
+                        "nama_gambar" => "user.png",
+                        "pelanggan_id" => $id_pelanggan
+                    );
+                    $ins = $this->db->insert("td_gambar",$img_profil);
                     if ($save) {
                         echo "Berhasil register,Silahkan login";
                     }else{
@@ -92,6 +98,50 @@ class Pelanggan extends CI_Controller{
                 );
                 echo json_encode($data_verif_login);
         }
+    }
+
+    public function get_profil(){
+        $id_pelanggan = $this->input->post("id_pelanggan");
+        $data_pelanggan = $this->ModelPelanggan->get_data_pelanggan($id_pelanggan)->row_array();
+        $gambar = $this->ModelPelanggan->get_profil($id_pelanggan)->row_array();
+        $data = array(
+            "full_name" => $data_pelanggan['nama_depan']." ".$data_pelanggan['nama_belakang'],
+            "nama_depan" => $data_pelanggan['nama_depan'],
+            "nama_belakang" => $data_pelanggan['nama_belakang'],
+            "no_tlp" => $data_pelanggan['no_telp'],
+            "alamat" => $data_pelanggan['alamat'],
+            "profil" => base_url()."assets/images/".$gambar['nama_gambar']
+        );
+        echo json_encode($data);
+    }
+
+    public function save_profil(){
+        $id_pelanggan = $this->input->post("id_pelanggan");
+        $nm_depan = $this->input->post("nama_depan");
+        $nm_blkng = $this->input->post("nama_belakang");
+        $alamat = $this->input->post("alamat");
+        $no_telp = $this->input->post("no_telp");
+        $data_pelanggan = array(
+            "nama_depan" => $nm_depan,
+            "nama_belakang" => $nm_blkng,
+            "alamat" => $alamat,
+            "no_telp" => $no_telp
+        );
+        $this->db->where('id',$id_pelanggan);
+        $edit_data = $this->db->update('tmst_pelanggan',$data_pelanggan);
+        if ($edit_data) {
+            $data = array(
+                "respone" => 1,
+                "message" => "Berhasil memperbarui profil"
+            );
+        }else{
+            $data = array(
+                "respone" => 0,
+                "message" => "Gagal memperbarui profil"
+            );
+        }
+        echo json_encode($data);
+        
     }
 
 }

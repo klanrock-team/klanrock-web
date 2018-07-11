@@ -46,4 +46,36 @@ class Jadwal extends CI_Controller{
         exit();
     }
 
+    public function get_jadwal(){
+        $tanggal = $this->input->post("tanggal");
+        $date = date("Y-m-d");
+        if ($tanggal==$date) {
+            $label_tanggal = "Hari Ini";
+        }else{
+            $label_tanggal = $this->ModelJadwal->format_tanggal($tanggal,true);
+        }
+        $data_jawal = $this->ModelJadwal->get_data_event($tanggal);
+        $jadwal = array();
+        foreach ($data_jawal as $data) {
+            $id = $data->pelanggan_id;
+            $data_gambar = $this->ModelJadwal->get_image($id)->row_array();
+            $jdwl = array(
+                "pelanggan" => $data->nama_depan." ".$data->nama_belakang,
+                "tanggal" => $this->ModelJadwal->format_tanggal($data->tanggal,true),
+                "jam"  => $this->ModelJadwal->pecah_jam($data->jam)." - ".$this->ModelJadwal->akhir_jam($data->jam,$data->jam_tambahan),
+                'paket' => $data->nama_paket,
+                'kategori' => $data->kategori,
+                "image_url" => base_url()."assets/images/".$data_gambar["nama_gambar"]
+            );
+            array_push($jadwal, $jdwl);
+        }
+        $label = array();
+        $lbl = array(
+            "label_tanggal"=>$label_tanggal,
+        );
+        array_push($label,$lbl);
+        echo json_encode(array("data_jadwal"=>$jadwal,"label"=>$label));
+
+    }
+
 }
