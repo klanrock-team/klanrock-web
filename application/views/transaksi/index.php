@@ -20,7 +20,7 @@
                 ?>
                 <div class="box box-primary">
                     <div class="box-header with-border">
-                        <!-- <div class="col-sm-4 ">
+                        <div class="col-sm-4 ">
                           <h4>Tampilkan Transaksi</h4>
                               <select class="select2 form-control" name="filter" id="filter">
                                   <option value="<?php echo date("Y-m-d");?>" selected>Hari Ini</option>
@@ -32,10 +32,10 @@
                                     <input type="date" name="mulai" class="form-control mulai" id="mulai" ><button type="button" class="btn btn-success" id="cari" style="margin-top: 10px;"><i class="fa fa-search"></i> Cari</button>
                           </div>
                           <div class="col-sm-4 col-md-4">
-                          </div> -->
+                          </div>
                     </div><!-- /.box-header -->
                     <div class="box-body tabel-box">
-                        <table class="table table-striped Tabel_Data" id="Tabel_Data">
+                        <table class="table table-striped" id="example1">
                             <thead>
                             <tr>
                                 <th>Nama Pelanggan</th>
@@ -287,6 +287,7 @@
                     }
                     $('#tbody_transaksi').html(html);
                     $("#loading").css("display","none");
+                    $(".Tabel_Data").ajax.reload();
                 }
             })
 
@@ -331,11 +332,12 @@
                     }
                     $('#tbody_transaksi').html(html);
                     $("#loading").css("display","none");
+                    $(".Tabel_Data").DataTable.ajax.reload();
                 }
             })
         });
 
-        $(".detail").click(function(){
+        $(document).on('click','.detail',function(){
             var id=$(this).attr("id");
             // alert("id transaksi : "+id);
             $.ajax({
@@ -379,7 +381,7 @@
         });
 
 
-        $(".lunasi").click(function(){
+        $(document).on('click','.lunasi',function(){
             var id=$(this).attr("id");
             // alert(id);
             $.ajax({

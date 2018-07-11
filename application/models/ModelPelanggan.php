@@ -13,5 +13,9 @@ class ModelPelanggan extends CI_Model{
     function get_data_pelanggan($id){
     	return $this->db->get_where('tmst_pelanggan',array('id'=>$id));
     }
+
+    function get_profil($id){
+    	return $this->db->get_where("td_gambar",array("pelanggan_id"=>$id));
+    }
 }
    

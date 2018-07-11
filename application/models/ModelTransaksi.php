@@ -27,6 +27,10 @@ class ModelTransaksi extends CI_Model{
         return $this->db->get('td_transaksi')->result();
     }
 
+    function get_max(){
+    	$this->db->order_by("id","DESC")->select("id");
+    	return $this->db->get("td_transaksi",1);
+    }
     function get_invoice(){
     	$this->db->order_by("tanggal","DESC");
 		$this->db->where(array('status'=>'invoice'));   	
@@ -53,5 +57,22 @@ class ModelTransaksi extends CI_Model{
     function get_gambar($id_detail){
     	return $this->db->get_where("td_gambar",array("detail_transaksi_id"=>$id_detail));
     }
+
+    function get_data_order($id){
+        $this->db->select("td_transaksi.id as id_transaksi,td_transaksi.timestamp as tanggal_transaksi,detail_transaksi.id as id_detail_transaksi,nama_paket,status,harga,total,tmst_paket.id as paket_id,tk_kategori_id,tanggal,jam,jam_tambahan,tambahan_orang");
+        $this->db->order_by("id_transaksi","DESC");
+        $this->db->join("tmst_paket","tmst_paket.id=td_transaksi.paket_id");
+        $this->db->join("detail_transaksi","detail_transaksi.td_transaksi_id=td_transaksi.id","LEFT");
+        return $this->db->get_where("td_transaksi",array("pelanggan_id"=>$id))->result();
+    }
+
+    function get_gambar_paket($id){
+        $this->db->group_by("tmst_paket_id");
+        return $this->db->get_where("td_gambar",array("tmst_paket_id"=>$id));
+    }
+    function get_kategori($id){
+        return $this->db->get_where("tk_kategori",array("id"=>$id));
+    }
+
 }
    
